@@ -1,0 +1,886 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Playfair+Display:wght@700;800&display=swap");
+/* NOTE: font loading now also happens via <link> tags in index.html (faster,
+   non-render-blocking). This @import is kept only as a fallback in case
+   someone opens style.css standalone; feel free to delete this line once
+   you confirm the <link> tags are working. */
+
+:root {
+  --ink-black: #04151f;
+  --dark-slate: #183a37;
+  --wheat: #efd6ac;
+  --burnt-orange: #c44900;
+  --midnight-violet: #432534;
+
+  --cream: #faf7f1;
+  --soft-cream: #fffdf8;
+  /* Darkened from #6f6257 for WCAG AA contrast (4.5:1) on --cream background */
+  --muted: #5c5044;
+  --border: rgba(24, 58, 55, 0.16);
+  --shadow: rgba(4, 21, 31, 0.055);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 20px;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(239, 214, 172, 0.75), transparent 28%),
+    radial-gradient(circle at 90% 20%, rgba(196, 73, 0, 0.12), transparent 26%),
+    radial-gradient(circle at 50% 100%, rgba(67, 37, 52, 0.12), transparent 32%),
+    linear-gradient(135deg, var(--cream), #f6efe4, #fbf8f3);
+  color: var(--ink-black);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(4, 21, 31, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(4, 21, 31, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 75%);
+}
+
+/* Skip link: hidden until focused, lets keyboard users jump past the nav */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 16px;
+  z-index: 2000;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--ink-black);
+  color: white;
+  font-weight: 800;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Navbar */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 16px 24px;
+}
+
+.navbar {
+  max-width: 1120px;
+  margin: auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.82);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 45px var(--shadow);
+  transition: 0.35s ease;
+}
+
+.navbar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 70px rgba(4, 21, 31, 0.12);
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+}
+
+.logo span {
+  color: var(--burnt-orange);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--dark-slate);
+  transition: 0.25s ease;
+}
+
+.nav-links a:hover {
+  color: var(--burnt-orange);
+}
+
+.nav-btn {
+  padding: 10px 18px;
+  border-radius: 999px;
+  color: white !important;
+  background: linear-gradient(135deg, var(--dark-slate), var(--midnight-violet));
+  box-shadow: 0 12px 26px rgba(67, 37, 52, 0.22);
+}
+
+/* Hero */
+
+.hero {
+  position: relative;
+  max-width: 1120px;
+  min-height: 92vh;
+  margin: auto;
+  padding: 20px 24px 70px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 54px;
+}
+
+.hero::before {
+  content: "PORTFOLIO";
+  position: absolute;
+  top: 10px;
+  right: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 90px;
+  font-weight: 800;
+  letter-spacing: -4px;
+  color: rgba(4, 21, 31, 0.035);
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.hero-text {
+  animation: heroReveal 0.9s ease both;
+}
+
+.small-title,
+.section-label {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(239, 214, 172, 0.55);
+  border: 1px solid rgba(196, 73, 0, 0.18);
+  color: var(--burnt-orange);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  box-shadow: 0 10px 24px rgba(196, 73, 0, 0.08);
+}
+
+.hero h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 76px;
+  line-height: 0.98;
+  letter-spacing: -2.2px;
+  margin-bottom: 18px;
+  text-wrap: balance;
+}
+
+.magazine-title {
+  font-size: clamp(3rem, 9vw, 8rem);
+  line-height: 0.86;
+  letter-spacing: -4px;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg,
+      var(--burnt-orange),
+      var(--dark-slate),
+      var(--midnight-violet));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero h2 {
+  font-size: 26px;
+  color: var(--dark-slate);
+  margin-bottom: 18px;
+}
+
+.hero p {
+  max-width: 570px;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-weight: 900;
+  transition: 0.28s ease;
+}
+
+.primary {
+  color: white;
+  background: linear-gradient(135deg, var(--burnt-orange), var(--midnight-violet));
+  box-shadow: 0 16px 36px rgba(196, 73, 0, 0.2);
+}
+
+.secondary {
+  color: var(--dark-slate);
+  background: rgba(255, 253, 248, 0.86);
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 28px var(--shadow);
+}
+
+.btn:hover {
+  transform: translateY(-4px);
+  letter-spacing: 0.3px;
+}
+
+.btn:focus-visible,
+.contact-links a:focus-visible,
+.nav-links a:focus-visible {
+  outline: 3px solid var(--burnt-orange);
+  outline-offset: 4px;
+}
+
+/* Hero Card */
+
+.hero-card {
+  position: relative;
+  padding: 42px;
+  min-height: 380px;
+  border-radius: 34px;
+  background:
+    linear-gradient(145deg, rgba(255, 253, 248, 0.92), rgba(239, 214, 172, 0.22));
+  border: 1px solid var(--border);
+  box-shadow: 0 28px 80px rgba(4, 21, 31, 0.1);
+  overflow: hidden;
+  animation: heroReveal 0.9s ease both, softFloat 5s ease-in-out infinite;
+  animation-delay: 0.12s, 0s;
+}
+
+/*
+  FIX: previously .hero-card:hover set `transform: translateY(-12px) scale(1.01)`
+  while the element also had an infinite `softFloat` animation that animates
+  `transform`. Both competed for the same property, causing jittery movement
+  on hover. Fix: pause the floating animation on hover so the hover transform
+  applies cleanly, then resume floating once the mouse leaves.
+*/
+.hero-card:hover {
+  animation-play-state: paused, paused;
+  transform: translateY(-12px) scale(1.01);
+}
+
+.hero-card::before {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  right: -80px;
+  top: -80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--wheat), var(--burnt-orange));
+  opacity: 0.35;
+}
+
+.hero-card::after {
+  content: "YS";
+  position: absolute;
+  right: 28px;
+  bottom: 10px;
+  font-family: "Playfair Display", serif;
+  font-size: 140px;
+  font-weight: 800;
+  color: rgba(24, 58, 55, 0.08);
+  line-height: 1;
+}
+
+/* .hero-card-heading: keeps the visual size of the old <h3> while the
+   element is now a semantically correct <h2> (see index.html), preserving
+   heading order (h1 in hero-text, h2 here, not a skipped-to h3) */
+.hero-card-heading {
+  position: relative;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink-black);
+  margin-bottom: 14px;
+}
+
+.hero-card p {
+  position: relative;
+  color: var(--muted);
+}
+
+.profile-photo {
+  position: relative;
+  z-index: 2;
+  width: 170px;
+  height: 170px;
+  margin-bottom: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(196, 73, 0, 0.25);
+  box-shadow: 0 18px 40px rgba(4, 21, 31, 0.12);
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes softFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes heroReveal {
+  from {
+    opacity: 0;
+    transform: translateY(34px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sections */
+
+.section {
+  position: relative;
+  max-width: 1120px;
+  margin: auto;
+  padding: 50px 24px;
+  /* Without this, clicking a nav link scrolls the section flush under the
+     sticky navbar, leaving no breathing room at the top and making the
+     page feel cramped/messy right after the jump. */
+  scroll-margin-top: 15px;
+  animation: fadeUp 0.8s ease both;
+}
+/*
+  BUGFIX: this closing brace was missing in the original file. Without it,
+  every rule below (including all @media queries and @keyframes fadeUp)
+  was nested inside .section{}, which is why the stylesheet used to rely on
+  CSS Nesting support instead of behaving as plain top-level CSS. All rules
+  below are now correctly top-level again.
+*/
+
+.section::before {
+  content: attr(id);
+  position: absolute;
+  top: 30px;
+  right: 24px;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: rgba(4, 21, 31, 0.035);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.section-title {
+  position: relative;
+  font-family: "Playfair Display", serif;
+  font-size: 50px;
+  line-height: 1.1;
+  letter-spacing: -1.3px;
+  max-width: 720px;
+  margin-bottom: 34px;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 76px;
+  height: 4px;
+  margin-top: 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg,
+      var(--burnt-orange),
+      var(--midnight-violet));
+}
+
+.about-box,
+.contact-box,
+.timeline-item,
+.skill-card,
+.project-card,
+.certificate-card {
+  position: relative;
+  background: rgba(255, 253, 248, 0.86);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  box-shadow: 0 22px 62px var(--shadow);
+  overflow: hidden;
+  transition: 0.32s ease;
+}
+
+.about-box,
+.contact-box {
+  padding: 38px;
+}
+
+.about-box p,
+.contact-box p,
+.timeline-item p,
+.skill-card p,
+.project-card p,
+.certificate-card p {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.about-box p+p {
+  margin-top: 16px;
+}
+
+/* Journey */
+
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 20px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: linear-gradient(var(--burnt-orange),
+      var(--dark-slate),
+      var(--midnight-violet));
+  opacity: 0.22;
+}
+
+.timeline-item {
+  margin-left: 28px;
+  padding: 28px 28px 28px 34px;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 28px;
+  bottom: 28px;
+  width: 5px;
+  border-radius: 999px;
+  background: linear-gradient(var(--burnt-orange), var(--midnight-violet));
+  z-index: 2;
+}
+
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255, 255, 255, 0.45),
+      transparent);
+  transform: skewX(-18deg);
+  transition: 0.8s ease;
+  z-index: 0;
+}
+
+.timeline-item:hover::after {
+  left: 130%;
+}
+
+.timeline-item span,
+.project-tag {
+  color: var(--burnt-orange);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.timeline-item h3,
+.skill-card h3,
+.project-card h3,
+.certificate-card h3 {
+  font-size: 22px;
+  color: var(--ink-black);
+  margin: 10px 0;
+}
+
+.timeline-item h3,
+.timeline-item p,
+.timeline-item span {
+  position: relative;
+  z-index: 2;
+}
+
+/* Grids */
+
+.skills-grid,
+.projects-grid,
+.certificate-grid {
+  display: grid;
+  gap: 22px;
+}
+
+.skills-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.projects-grid {
+  grid-template-columns: repeat(2, 1fr);
+  align-items: stretch;
+}
+
+.certificate-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.skill-card,
+.project-card,
+.certificate-card {
+  padding: 30px;
+  border-top: 4px solid transparent;
+  isolation: isolate;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.skill-card::after,
+.project-card::after,
+.certificate-card::after,
+.about-box::after,
+.contact-box::after {
+  content: "";
+  position: absolute;
+  right: -55px;
+  bottom: -60px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(239, 214, 172, 0.7), rgba(196, 73, 0, 0.16));
+  transition: 0.35s ease;
+}
+
+.about-box::before,
+.contact-box::before,
+.skill-card::before,
+.project-card::before,
+.certificate-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255, 255, 255, 0.45),
+      transparent);
+  transform: skewX(-18deg);
+  transition: 0.8s ease;
+  z-index: -1;
+}
+
+.about-box:hover::before,
+.contact-box:hover::before,
+.skill-card:hover::before,
+.project-card:hover::before,
+.certificate-card:hover::before {
+  left: 130%;
+}
+
+.certificate-img {
+  width: 100%;
+  height: 260px;
+  object-fit: contain;
+  background: #fffdf8;
+  border-radius: 22px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+
+.skill-card:hover,
+.project-card:hover,
+.certificate-card:hover,
+.timeline-item:hover {
+  transform: translateY(-12px) scale(1.01);
+  border-color: rgba(196, 73, 0, 0.25);
+  border-top-color: var(--burnt-orange);
+  box-shadow: 0 36px 90px rgba(67, 37, 52, 0.16);
+}
+
+.skill-card:hover::after,
+.project-card:hover::after,
+.certificate-card:hover::after {
+  transform: scale(1.22);
+}
+
+.skill-card {
+  min-height: 190px;
+}
+
+.skill-card h3 {
+  font-size: 24px;
+}
+
+.skill-card h3::before {
+  content: "✦";
+  color: var(--burnt-orange);
+  margin-right: 8px;
+}
+
+.skill-card p {
+  margin-top: 14px;
+}
+
+.certificate-card {
+  min-height: 210px;
+}
+
+/* Project links row — used once real projects with live demo + repo links
+   replace the "In Progress" placeholders */
+.project-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.project-links a {
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--burnt-orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Contact */
+
+.contact-box {
+  background:
+    linear-gradient(135deg, rgba(255, 253, 248, 0.95), rgba(239, 214, 172, 0.28));
+}
+
+.contact-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.contact-links a {
+  padding: 12px 18px;
+  border-radius: 999px;
+  color: white;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--dark-slate), var(--midnight-violet));
+  box-shadow: 0 14px 32px rgba(4, 21, 31, 0.14);
+  transition: 0.3s ease;
+}
+
+.contact-links a:hover {
+  background: linear-gradient(135deg, var(--burnt-orange), var(--midnight-violet));
+  transform: translateY(-4px);
+}
+
+footer {
+  text-align: center;
+  padding: 34px 20px;
+  color: var(--muted);
+  font-size: 15px;
+  background: rgba(255, 253, 248, 0.6);
+  border-top: 1px solid var(--border);
+}
+
+/* NOTE: the "Made with curiosity..." text now lives directly in the HTML
+   footer <p> tag instead of being injected via ::after. CSS-generated
+   content isn't reliably selectable/readable by all screen readers and
+   can't be copy-pasted by the user — real text is more accessible. */
+
+/* Animations */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 58px;
+  }
+
+  .hero::before {
+    font-size: 72px;
+    top: 60px;
+  }
+
+  .skills-grid,
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 155px;
+    /* Mobile navbar becomes taller because links wrap */
+  }
+
+  .section {
+    scroll-margin-top: 100px;
+    /* Larger mobile offset so headings stay visible under the taller navbar */
+  }
+
+  .header {
+    padding: 12px;
+  }
+
+  .navbar {
+    border-radius: 24px;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .nav-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+  }
+
+  .hero {
+    padding-top: 36px;
+  }
+
+  .hero::before {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: 43px;
+  }
+
+  .magazine-title {
+    font-size: 52px;
+    letter-spacing: -2px;
+    line-height: 0.95;
+  }
+
+  .hero h2 {
+    font-size: 21px;
+  }
+
+  .section::before {
+    display: none;
+  }
+
+  .section-title {
+    font-size: 36px;
+  }
+
+  .skills-grid,
+  .projects-grid,
+  .certificate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card,
+  .about-box,
+  .contact-box,
+  .skill-card,
+  .project-card,
+  .certificate-card {
+    padding: 26px;
+  }
+
+  .timeline::before {
+    display: none;
+  }
+
+  .timeline-item {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .hero-buttons,
+  .contact-links {
+    flex-direction: column;
+  }
+
+  .btn,
+  .contact-links a {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
